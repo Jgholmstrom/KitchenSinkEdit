@@ -7,7 +7,7 @@ namespace KitchenSink {
         public double Longitude;
     }
 
-    partial class GeoPage : Json {
+    partial class GeoPage : Page {
         //Stockholm coordinates
         public readonly double DefaultLatitude = 59.3319913;
         public readonly double DefaultLongitude = 18.0765409;

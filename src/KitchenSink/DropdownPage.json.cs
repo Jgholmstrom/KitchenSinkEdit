@@ -2,7 +2,7 @@ using Starcounter;
 using Simplified.Ring3;
 
 namespace KitchenSink {
-    partial class DropdownPage : Json
+    partial class DropdownPage : Page
     {
         static DropdownPage() {
             DropdownPage.DefaultTemplate.SelectedProductKey.Bind = "SelectedProductKeyBind";

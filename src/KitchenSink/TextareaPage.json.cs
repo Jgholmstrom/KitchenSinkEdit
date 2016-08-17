@@ -1,7 +1,7 @@
 using Starcounter;
 
 namespace KitchenSink {
-  partial class TextareaPage : Json
+  partial class TextareaPage : Page
     {
 
     public string CalculatedBioReaction {

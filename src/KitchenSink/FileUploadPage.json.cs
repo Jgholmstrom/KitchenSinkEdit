@@ -3,12 +3,12 @@ using System.IO;
 using Starcounter;
 
 namespace KitchenSink {
-    partial class FileUploadPage : Json
+    partial class FileUploadPage : Page
     {
         protected override void OnData() {
             base.OnData();
 
-            this.SessionId = Session.Current.SessionId;
+            this.SessionId = Session.Current.ToAsciiString();
         }
 
         public string GetFileSizeString(long Size) {

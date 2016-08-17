@@ -2,8 +2,8 @@ using FluentValidation;
 using Starcounter;
 
 namespace KitchenSink {
-    partial class ValidationPage : Json
-    {
+    partial class ValidationPage : Page
+    {/*
         private SettingsValidator _settingsValidator;
         protected override void OnData()
         {
@@ -22,6 +22,6 @@ namespace KitchenSink {
         {
             RuleFor(item => item.Name).NotEmpty().BindError((item, err) => { item.ErrorName = err; });
             RuleFor(item => item.LastName).NotEmpty().BindError((item, err) => { item.ErrorLastName = err; });
-        }
+        }*/
     }
 }

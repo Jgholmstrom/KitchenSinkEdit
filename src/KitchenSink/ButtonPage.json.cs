@@ -1,7 +1,7 @@
 using Starcounter;
 
 namespace KitchenSink {
-    partial class ButtonPage : Json
+    partial class ButtonPage : Page
     {
         void Handle(Input.AddCarrots action) {
             if (action.Value == 0) {

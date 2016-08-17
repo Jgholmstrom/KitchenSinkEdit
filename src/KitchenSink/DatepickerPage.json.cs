@@ -2,7 +2,7 @@ using System;
 using Starcounter;
 
 namespace KitchenSink {
-    partial class DatepickerPage : Json
+    partial class DatepickerPage : Page
     {
         protected override void OnData() {
             base.OnData();
