@@ -85,6 +85,10 @@
     <Compile Include="ChartPage.json.cs">
       <DependentUpon>ChartPage.json</DependentUpon>
     </Compile>
+    <Compile Include="SortableListPage.json.cs">
+      <DependentUpon>SortableListPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="SortableListTestData.cs" />
     <Compile Include="ValidationPage.json.cs">
       <DependentUpon>ValidationPage.json</DependentUpon>
     </Compile>
@@ -189,6 +193,7 @@
     <Content Include="wwwroot\KitchenSink\ButtonPage.html" />
     <Content Include="wwwroot\KitchenSink\CallbackPage.html" />
     <Content Include="wwwroot\KitchenSink\ChartPage.html" />
+    <Content Include="wwwroot\KitchenSink\SortableListPage.html" />
     <Content Include="wwwroot\KitchenSink\ValidationPage.html" />
     <Content Include="wwwroot\KitchenSink\ToggleButtonPage.html" />
     <Content Include="wwwroot\KitchenSink\CheckboxPage.html" />
@@ -375,6 +380,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <TypedJSON Include="SortableListPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(StarcounterBin)\Starcounter.MsBuild.targets" />

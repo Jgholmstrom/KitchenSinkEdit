@@ -1,0 +1,22 @@
+﻿<template>
+    <template is="dom-bind">
+        <h3>Peoplez</h3>
+        <div class="sortablelist-items">
+            <div class="sortablelist-items-head">
+                <div class="sortablelist-item-cell">Person</div>
+            </div>
+
+            <div class="sortablelist-items-body">
+                <template is="dom-repeat" items="{{model.People}}">
+                    <div class="sortablelist-item">
+                        <div class="sortablelist-item-cell readonlycell">
+                            <button value="{{item.Up$::click}}" onmousedown="++this.value" disabled$="{{item.TopDisabled}}">Up</button>
+                            <button value="{{item.Down$::click}}" onmousedown="++this.value" disabled$="{{model.BottomDisabled}}">Down</button>
+                            <span>{{item.Name}}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,14 @@
+{
+    "Html": "/KitchenSink/SortableListPage.html",
+    "People": [
+        {
+            "Up$": 0,
+            "Down$": 0,
+            "Name": "",
+            "Position": 0,
+            "TopDisabled": false,
+            "BottomDisabled": false
+
+        }
+    ]
+}
