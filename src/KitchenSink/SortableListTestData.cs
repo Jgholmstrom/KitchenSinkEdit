@@ -4,6 +4,8 @@ namespace KitchenSink
 {
     static class SortableListTestData
     {
+        public static int LastPosition = 0;
+        private static Person LastPerson;
         public static bool Exists()
         {
             var exists = Db.SQL<Person>("SELECT i FROM Person i FETCH ?", 1).First;
@@ -16,36 +18,46 @@ namespace KitchenSink
 
         public static void DeleteAll()
         {
-            Db.SlowSQL("DELETE FROM Person");
+            Db.Transact(() =>
+            {
+                Db.SlowSQL("DELETE FROM Person");
+            });
+            LastPosition = 0;
+            LastPerson = null;
         }
         public static void Create()
         {
+                CreatePerson("Billy");
+                CreatePerson("Bob");
+                CreatePerson("John");
+                CreatePerson("Jane");
+                CreatePerson("Peter");
+                CreatePerson("Paul");
+                CreatePerson("Mary");
+        }
+
+        //Creates a person at the bottom of the list and disables the relevant buttons
+        public static void CreatePerson(string name)
+        {
             Db.Transact(() =>
             {
-                var John = new Person()
+                LastPosition++;
+                var p = new Person()
                 {
-                    Name = "John",
-                    Position = 1
+                    Name = name,
+                    Position = LastPosition,
+                    BottomDisabled = true
                 };
-
-                var Jane = new Person()
+                if (LastPerson != null)
                 {
-                    Name = "Jane",
-                    Position = 2
-                };
-
-                var Billy = new Person()
+                    LastPerson.BottomDisabled = false;
+                }
+                else
                 {
-                    Name = "Billy",
-                    Position = 3
-                };
-
-                var Bob = new Person()
-                {
-                    Name = "Bob",
-                    Position = 4
-                };
+                    p.TopDisabled = true;
+                }
+                LastPerson = p;
             });
-            }
+        }
     }
 }

@@ -1,6 +1,26 @@
-﻿<template>
+﻿<link rel="stylesheet" href="/sys/font-awesome/css/font-awesome.min.css">
+<template>
     <template is="dom-bind">
-        <h3>Peoplez</h3>
+        <h3>Sortable list</h3>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.People}}">
+                    <tr>
+                        <td>{{item.Position}}</td>
+                        <td>{{item.Name}}</td>
+                        <td><button class="fa fa-thumbs-up kitchensink-thumbs-up" value="{{item.Up$::click}}" onmousedown="++this.value" disabled$="{{item.TopDisabled}}"></button></td>
+                        <td><button class="fa fa-thumbs-down kitchensink-thumbs-down" value="{{item.Down$::click}}" onmousedown="++this.value" disabled$="{{item.BottomDisabled}}"></button></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <!--
         <div class="sortablelist-items">
             <div class="sortablelist-items-head">
                 <div class="sortablelist-item-cell">Person</div>
@@ -11,12 +31,12 @@
                     <div class="sortablelist-item">
                         <div class="sortablelist-item-cell readonlycell">
                             <button value="{{item.Up$::click}}" onmousedown="++this.value" disabled$="{{item.TopDisabled}}">Up</button>
-                            <button value="{{item.Down$::click}}" onmousedown="++this.value" disabled$="{{model.BottomDisabled}}">Down</button>
+                            <button value="{{item.Down$::click}}" onmousedown="++this.value" disabled$="{{item.BottomDisabled}}">Down</button>
                             <span>{{item.Name}}</span>
                         </div>
                     </div>
                 </template>
             </div>
-        </div>
+        </div> -->
     </template>
 </template>

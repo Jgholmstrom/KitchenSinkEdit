@@ -7,6 +7,8 @@ namespace KitchenSink
     {
         public string Name;
         public int Position;
+        public bool TopDisabled;
+        public bool BottomDisabled;
     }
 
     partial class SortableListPage : Page
@@ -14,13 +16,10 @@ namespace KitchenSink
         protected override void OnData()
         {
             base.OnData();
-            
+
             if (SortableListTestData.Exists())
             {
-                Db.Transact(() =>
-                {
-                    SortableListTestData.DeleteAll();
-                });
+                SortableListTestData.DeleteAll();
             }
             SortableListTestData.Create();
             People = Db.SQL("SELECT p FROM Person p ORDER BY p.Position");
@@ -44,7 +43,10 @@ namespace KitchenSink
                     Data.Position--;
                     PersonAbove.Position++;
                 });
+                CheckTopAndBottom(Data);
+                CheckTopAndBottom(PersonAbove);
             }
+            
             SortableListPage sortableListPage = (SortableListPage)Parent.Parent;
             sortableListPage.RefreshData();
             
@@ -60,9 +62,20 @@ namespace KitchenSink
                     Data.Position++;
                     PersonBelow.Position--;
                 });
+                CheckTopAndBottom(Data);
+                CheckTopAndBottom(PersonBelow);
             }
             SortableListPage sortableListPage = (SortableListPage)Parent.Parent;
             sortableListPage.RefreshData();
+        }
+
+        void CheckTopAndBottom (Person p)
+        {
+            Db.Transact(() =>
+            {
+                p.TopDisabled = (p.Position == 1) ? true : false;
+                p.BottomDisabled = (p.Position == SortableListTestData.LastPosition) ? true : false;
+            });
         }
     }
 }

@@ -138,3 +138,21 @@
     color: red;
     font-size: 8pt;
 }
+
+.kitchensink-thumbs-up:hover {
+    color: green;
+}
+
+.kitchensink-thumbs-up[disabled] {
+    opacity: 0.5;
+    color:black
+}
+
+.kitchensink-thumbs-down:hover {
+    color: red;
+}
+
+.kitchensink-thumbs-down[disabled] {
+    opacity: 0.5;
+    color: black;
+}
