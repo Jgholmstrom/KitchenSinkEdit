@@ -55,16 +55,13 @@ namespace KitchenSink
         void Handle(Input.Down action)
         {
             Person PersonBelow = Db.SQL<Person>("SELECT p FROM Person p WHERE p.Position = ?", Data.Position + 1).First;
-            if (PersonBelow != null)
+            Db.Transact(() =>
             {
-                Db.Transact(() =>
-                {
-                    Data.Position++;
-                    PersonBelow.Position--;
-                });
-                CheckTopAndBottom(Data);
-                CheckTopAndBottom(PersonBelow);
-            }
+                Data.Position++;
+                PersonBelow.Position--;
+            });
+            CheckTopAndBottom(Data);
+            CheckTopAndBottom(PersonBelow);
             SortableListPage sortableListPage = (SortableListPage)Parent.Parent;
             sortableListPage.RefreshData();
         }

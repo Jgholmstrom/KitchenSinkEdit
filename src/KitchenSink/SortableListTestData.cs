@@ -27,6 +27,8 @@ namespace KitchenSink
         }
         public static void Create()
         {
+            Db.Transact(() =>
+            {
                 CreatePerson("Billy");
                 CreatePerson("Bob");
                 CreatePerson("John");
@@ -34,13 +36,12 @@ namespace KitchenSink
                 CreatePerson("Peter");
                 CreatePerson("Paul");
                 CreatePerson("Mary");
+            }); 
         }
 
         //Creates a person at the bottom of the list and disables the relevant buttons
-        public static void CreatePerson(string name)
+        private static void CreatePerson(string name)
         {
-            Db.Transact(() =>
-            {
                 LastPosition++;
                 var p = new Person()
                 {
@@ -57,7 +58,6 @@ namespace KitchenSink
                     p.TopDisabled = true;
                 }
                 LastPerson = p;
-            });
         }
     }
 }
