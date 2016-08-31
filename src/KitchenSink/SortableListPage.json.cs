@@ -7,8 +7,6 @@ namespace KitchenSink
     {
         public string Name;
         public int Position;
-        public bool TopDisabled;
-        public bool BottomDisabled;
     }
 
     partial class SortableListPage : Page
@@ -17,16 +15,17 @@ namespace KitchenSink
         {
             base.OnData();
 
-            if (SortableListTestData.Exists())
+            if (!SortableListTestData.Exists())
             {
-                SortableListTestData.DeleteAll();
+                SortableListTestData.Create();
             }
-            SortableListTestData.Create();
-            People = Db.SQL("SELECT p FROM Person p ORDER BY p.Position");
+            RefreshData();
         }
         public void RefreshData()
         {
             People = Db.SQL("SELECT p FROM Person p ORDER BY p.Position");
+            People[0].TopDisabled = true;
+            People[People.Count-1].BottomDisabled = true;
         }
     }
 
@@ -36,17 +35,11 @@ namespace KitchenSink
         void Handle(Input.Up action)
         {
             Person PersonAbove = Db.SQL<Person>("SELECT p FROM Person p WHERE p.Position = ?", Data.Position - 1).First;
-            if (PersonAbove != null)
+            Db.Transact(() =>
             {
-                Db.Transact(() =>
-                {
-                    Data.Position--;
-                    PersonAbove.Position++;
-                });
-                CheckTopAndBottom(Data);
-                CheckTopAndBottom(PersonAbove);
-            }
-            
+                Data.Position--;
+                PersonAbove.Position++;
+            });
             SortableListPage sortableListPage = (SortableListPage)Parent.Parent;
             sortableListPage.RefreshData();
             
@@ -60,19 +53,8 @@ namespace KitchenSink
                 Data.Position++;
                 PersonBelow.Position--;
             });
-            CheckTopAndBottom(Data);
-            CheckTopAndBottom(PersonBelow);
             SortableListPage sortableListPage = (SortableListPage)Parent.Parent;
             sortableListPage.RefreshData();
-        }
-
-        void CheckTopAndBottom (Person p)
-        {
-            Db.Transact(() =>
-            {
-                p.TopDisabled = (p.Position == 1) ? true : false;
-                p.BottomDisabled = (p.Position == SortableListTestData.LastPosition) ? true : false;
-            });
         }
     }
 }

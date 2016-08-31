@@ -5,7 +5,6 @@ namespace KitchenSink
     static class SortableListTestData
     {
         public static int LastPosition = 0;
-        private static Person LastPerson;
         public static bool Exists()
         {
             var exists = Db.SQL<Person>("SELECT i FROM Person i FETCH ?", 1).First;
@@ -23,7 +22,6 @@ namespace KitchenSink
                 Db.SlowSQL("DELETE FROM Person");
             });
             LastPosition = 0;
-            LastPerson = null;
         }
         public static void Create()
         {
@@ -46,18 +44,8 @@ namespace KitchenSink
                 var p = new Person()
                 {
                     Name = name,
-                    Position = LastPosition,
-                    BottomDisabled = true
+                    Position = LastPosition
                 };
-                if (LastPerson != null)
-                {
-                    LastPerson.BottomDisabled = false;
-                }
-                else
-                {
-                    p.TopDisabled = true;
-                }
-                LastPerson = p;
         }
     }
 }
